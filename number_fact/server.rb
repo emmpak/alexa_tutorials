@@ -3,7 +3,9 @@ require 'json'
 require 'net/http'
 
 post '/' do
-  number_facts_uri = URI("http://numbersapi.com/42")
+  number = JSON.parse(request.body.read)["request"]["intent"]["slots"]["Number"]["value"]
+
+  number_facts_uri = URI("http://numbersapi.com/#{ number }")
 
   number_fact = Net::HTTP.get(number_facts_uri)
   {
